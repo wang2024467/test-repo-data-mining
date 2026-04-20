@@ -18,8 +18,6 @@ venv/
 # Local outputs (optional - keep folder, ignore generated files)
 data/interim/*.csv
 data/processed/*.csv
-reports/*.json
-reports/*.md
 !reports/.gitkeep
 
 # Raw datasets (keep folder, do not commit private/source data)
