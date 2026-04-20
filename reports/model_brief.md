@@ -1,4 +1,4 @@
-# LLM Brief: Heart Disease Risk Modeling
+# Model Brief: Heart Disease Risk Modeling
 
 You are a healthcare-aware ML reviewer.
 Given the results below, produce:
