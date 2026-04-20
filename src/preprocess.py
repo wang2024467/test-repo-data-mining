@@ -113,6 +113,19 @@ def encode_for_model(df: pd.DataFrame) -> pd.DataFrame:
         "thal",
     ]
 
+    x = df[feature_cols].copy()
+
+    # Force consistent numeric dtypes before sklearn preprocessing.
+    # UCI files may mix string tokens (e.g. "?") with numeric-looking values,
+    # which can produce mixed str/float columns and break OneHotEncoder.
+    for col in feature_cols:
+        x[col] = pd.to_numeric(x[col], errors="coerce")
+
+    # scikit-learn imputers expect np.nan for missing values.
+    x = x.replace({pd.NA: np.nan})
+
+    y = df["target"].copy()
+
     numeric_features = ["age", "trestbps", "chol", "thalach", "oldpeak", "ca"]
     categorical_features = [
         "sex",
