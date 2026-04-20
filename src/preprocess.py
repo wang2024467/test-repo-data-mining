@@ -8,7 +8,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -114,12 +113,6 @@ def encode_for_model(df: pd.DataFrame) -> pd.DataFrame:
         "thal",
     ]
 
-    x = df[feature_cols].copy()
-    # scikit-learn imputers expect np.nan rather than pandas.NA in object arrays.
-    x = x.replace({pd.NA: np.nan})
-
-    y = df["target"].copy()
-
     numeric_features = ["age", "trestbps", "chol", "thalach", "oldpeak", "ca"]
     categorical_features = [
         "sex",
@@ -130,6 +123,19 @@ def encode_for_model(df: pd.DataFrame) -> pd.DataFrame:
         "slope",
         "thal",
     ]
+
+    x = df[feature_cols].copy()
+
+    # Numeric columns should be real numbers for median imputation.
+    for col in numeric_features:
+        x[col] = pd.to_numeric(x[col], errors="coerce")
+
+    # Keep categoricals as a uniform string dtype so OneHotEncoder never sees
+    # mixed Python types (e.g., float NaN + str tokens) in the same column.
+    for col in categorical_features:
+        x[col] = pd.to_numeric(x[col], errors="coerce").astype("Int64").astype("string")
+
+    y = df["target"].copy()
 
     preprocessor = ColumnTransformer(
         transformers=[
@@ -144,7 +150,10 @@ def encode_for_model(df: pd.DataFrame) -> pd.DataFrame:
                 "cat",
                 Pipeline(
                     steps=[
-                        ("imputer", SimpleImputer(strategy="most_frequent")),
+                        (
+                            "imputer",
+                            SimpleImputer(strategy="most_frequent", missing_values=pd.NA),
+                        ),
                         (
                             "onehot",
                             OneHotEncoder(handle_unknown="ignore", sparse_output=False),
