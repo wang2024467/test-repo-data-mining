@@ -40,6 +40,13 @@ Start with:
 
 Put those files into `data/raw/`.
 
+## Data privacy / Git safety
+
+- Put UCI files in `data/raw/` locally for running the pipeline.
+- `data/raw/*` should stay untracked so private/local datasets are never pushed.
+- Keep only `data/raw/.gitkeep` in GitHub.
+
+
 ## Setup
 
 ```bash
@@ -108,3 +115,44 @@ You demonstrate:
 - **ML modeling and evaluation**
 - **AI/LLM integration for interpretability and communication**
 
+
+## How to put this into your GitHub repo
+
+If your repo already exists on GitHub, use these commands from your project root:
+
+```bash
+# 1) Initialize git only if needed
+git init
+
+# 2) Add your GitHub repo as remote (replace with your URL)
+git remote add origin https://github.com/<your-username>/<your-repo>.git
+
+# If origin already exists, update it instead:
+# git remote set-url origin https://github.com/<your-username>/<your-repo>.git
+
+# 3) Commit files
+git add .
+git commit -m "Add heart disease ML+AI pipeline"
+
+# 4) Push to GitHub
+git branch -M main
+git push -u origin main
+```
+
+If you already have commits and just want to push updates:
+
+```bash
+git add .
+git commit -m "Update preprocessing/training workflow"
+git push
+```
+
+### Recommended commit flow for this project
+
+1. `feat: preprocessing pipeline`
+2. `feat: SQL cleaning workflow`
+3. `feat: model training + metrics`
+4. `feat: LLM brief generation`
+5. `docs: README with run instructions`
+
+That sequence makes your contribution history easy for recruiters to review.

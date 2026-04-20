@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -114,6 +115,9 @@ def encode_for_model(df: pd.DataFrame) -> pd.DataFrame:
     ]
 
     x = df[feature_cols].copy()
+    # scikit-learn imputers expect np.nan rather than pandas.NA in object arrays.
+    x = x.replace({pd.NA: np.nan})
+
     y = df["target"].copy()
 
     numeric_features = ["age", "trestbps", "chol", "thalach", "oldpeak", "ca"]
