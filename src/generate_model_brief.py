@@ -1,7 +1,7 @@
-"""Create an LLM-ready brief from model metrics.
+"""Create a model-review brief from model metrics.
 
 Usage:
-    python src/generate_llm_brief.py
+    python src/generate_model_brief.py
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ def main() -> None:
     sorted_metrics = sorted(metrics, key=lambda r: r["roc_auc"], reverse=True)
 
     lines = [
-        "# LLM Brief: Heart Disease Risk Modeling",
+        "# Model Brief: Heart Disease Risk Modeling",
         "",
         "You are a healthcare-aware ML reviewer.",
         "Given the results below, produce:",
@@ -55,7 +55,7 @@ def main() -> None:
         ]
     )
 
-    out_path = REPORTS / "llm_brief.md"
+    out_path = REPORTS / "model_brief.md"
     out_path.write_text("\n".join(lines))
     print(f"Saved {out_path}")
 
