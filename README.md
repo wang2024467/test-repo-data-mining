@@ -1,6 +1,19 @@
 # Heart Disease ML + AI Portfolio Project
 
-This repository is now structured as an end-to-end project (not only data mining):
+## Dataset Citation and License
+
+### Citation
+Janosi, A., Steinbrunn, W., Pfisterer, M., & Detrano, R. (1989). *Heart Disease* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C52P4X
+
+### Source:
+- UCI Machine Learning Repository: Heart Disease
+- DOI: 10.24432/C52P4X
+
+### License
+The UCI Heart Disease dataset is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). This project uses the dataset under those terms and provides attribution to the original creators and source.
+
+
+This repository is now structured as an end-to-end project:
 1. **Data preprocessing/cleaning** (Python + SQL)
 2. **Machine learning model training/evaluation**
 3. **Model insight generation from model outputs**
