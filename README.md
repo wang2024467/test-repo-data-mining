@@ -13,9 +13,10 @@ Janosi, A., Steinbrunn, W., Pfisterer, M., & Detrano, R. (1989). *Heart Disease*
 The UCI Heart Disease dataset is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). This project uses the dataset under those terms and provides attribution to the original creators and source.
 
 
-This repository is now structured as an end-to-end project:
+This repository is now structured as an end-to-end project (not only data mining):
 1. **Data preprocessing/cleaning** (Python + SQL)
 2. **Machine learning model training/evaluation**
+3. **LLM-ready insight generation from model outputs**
 3. **Model insight generation from model outputs**
 
 ## Recommended GitHub Structure
@@ -30,6 +31,7 @@ heart-disease-project/
 │   └── processed/            # Final cleaned datasets
 ├── reports/
 │   ├── metrics.json          # Model performance output
+│   └── llm_brief.md          # Prompt/brief for LLM-based interpretation
 │   └── model_brief.md        # Prompt/brief for model interpretation
 ├── notebooks/
 │   └── 01_eda.ipynb          # Optional EDA notebook
@@ -38,6 +40,7 @@ heart-disease-project/
 ├── src/
 │   ├── preprocess.py         # Data preprocessing pipeline
 │   ├── train_model.py        # ML training and evaluation
+│   └── generate_llm_brief.py # Build LLM-ready summary from metrics
 │   └── generate_model_brief.py # Build summary from metrics
 └── tests/
     └── test_preprocess.py
@@ -64,22 +67,7 @@ Put those files into `data/raw/`.
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Step 1: Preprocess data (Python)
-
-```bash
-python src/preprocess.py
-```
-
-Outputs:
-- `data/interim/heart_combined_raw.csv`
-- `data/processed/heart_cleaned.csv`
-- `data/processed/heart_model_ready.csv`
-
-## Step 1B (Optional): Show SQL skills
+@@ -70,89 +70,119 @@ Outputs:
 
 Use DuckDB to run SQL preprocessing:
 
@@ -105,20 +93,54 @@ What it does:
 Output:
 - `reports/metrics.json`
 
+## Step 3: Use LLM for decision-support narrative
 ## Step 3: Generate decision-support narrative
 
 ```bash
+python src/generate_llm_brief.py
 python src/generate_model_brief.py
 ```
 
 Output:
+- `reports/llm_brief.md`
 - `reports/model_brief.md`
 
+You can paste `reports/llm_brief.md` into ChatGPT or any enterprise LLM to generate:
 You can share `reports/model_brief.md` with stakeholders to generate:
 - model comparison narrative,
 - deployment recommendation,
 - risk/ethics caveats,
 - next experiments for improvement.
+
+
+## Optional: Advanced benchmarking framework
+
+If you want to keep the current pipeline unchanged and add a stronger comparison suite, see:
+- `src/advanced_modeling_framework.py`
+- `docs/advanced_scope.md`
+
+This framework adds:
+- model registry including Logistic Regression, Random Forest, KNN, and optional XGBoost/CatBoost,
+- stratified 5-fold CV with mean±std summaries,
+- expanded metrics (ROC-AUC, PR-AUC, F1, balanced accuracy, precision, recall, specificity, brier score),
+- threshold search and calibration helpers,
+- a plot checklist for EDA, model comparison, interpretability, and UMAP.
+
+
+### Generate figures (saved to disk)
+
+Run:
+
+```bash
+python -m src.generate_plots
+# or: python src/generate_plots.py
+```
+
+This writes:
+- figure images to `reports/figures/`
+- CV artifacts and figure manifest to `reports/advanced/`
+
+The script keeps the existing training pipeline unchanged and adds a plotting/reporting layer on top.
 
 ## Why this is strong for your job profile
 
@@ -126,6 +148,7 @@ You demonstrate:
 - **Python data engineering** (cleaning and feature prep)
 - **SQL transformation skills**
 - **ML modeling and evaluation**
+- **AI/LLM integration for interpretability and communication**
 - **AI-assisted interpretability and communication**
 
 
@@ -165,6 +188,7 @@ git push
 1. `feat: preprocessing pipeline`
 2. `feat: SQL cleaning workflow`
 3. `feat: model training + metrics`
+4. `feat: LLM brief generation`
 4. `feat: model brief generation`
 5. `docs: README with run instructions`
 
