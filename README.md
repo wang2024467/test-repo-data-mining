@@ -142,19 +142,10 @@ This writes:
 
 The script keeps the existing training pipeline unchanged and adds a plotting/reporting layer on top.
 
-## Why this is strong for your job profile
-
-You demonstrate:
-- **Python data engineering** (cleaning and feature prep)
-- **SQL transformation skills**
-- **ML modeling and evaluation**
-- **AI/LLM integration for interpretability and communication**
-- **AI-assisted interpretability and communication**
-
 
 ## How to put this into your GitHub repo
 
-If your repo already exists on GitHub, use these commands from your project root:
+If repo already exists on GitHub, use these commands from your project root:
 
 ```bash
 # 1) Initialize git only if needed
@@ -175,7 +166,7 @@ git branch -M main
 git push -u origin main
 ```
 
-If you already have commits and just want to push updates:
+If already have commits and just want to push updates:
 
 ```bash
 git add .
