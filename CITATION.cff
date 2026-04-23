@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the dataset below."
+preferred-citation:
+  type: dataset
+  title: "Heart Disease"
+  authors:
+    - family-names: "Janosi"
+      given-names: "A."
+    - family-names: "Steinbrunn"
+      given-names: "W."
+    - family-names: "Pfisterer"
+      given-names: "M."
+    - family-names: "Detrano"
+      given-names: "R."
+  year: 1989
+  publisher: "UCI Machine Learning Repository"
+  doi: "10.24432/C52P4X"
+  url: "https://doi.org/10.24432/C52P4X"
